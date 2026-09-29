@@ -2,7 +2,7 @@ import db from '../config/database.js'
 
 export async function getAllClients(req, res) {
     try {
-        const [clients] = await db.query('SELECT * FROM clientes');
+        const [clients] = await db.query('SELECT id, name AS nome, cpf, telefone, email, endereco FROM clientes');
         res.json(clients);
     } catch (error) {
         console.error('Erro ao buscar clientes:', error);
@@ -13,7 +13,7 @@ export async function getAllClients(req, res) {
 export async function getClientById(req, res) {
     const { id } = req.params;
     try {
-        const [client] = await db.query('SELECT * FROM clientes WHERE id = ?', [id]);
+        const [client] = await db.query('SELECT id, name AS nome, cpf, telefone, email, endereco FROM clientes WHERE id = ?', [id]);
         if (client.length === 0) {
             return res.status(404).json({ error: 'Cliente não encontrado' });
         }
@@ -25,10 +25,11 @@ export async function getClientById(req, res) {
 }
 
 export async function createClient(req, res) {
-    const { name, cpf, telefone, email, endereco } = req.body;
+    const { name, nome, cpf, telefone, email, endereco } = req.body;
+    const clientName = name ?? nome;
     try {
-        const [result] = await db.query('INSERT INTO clientes (nome, cpf, telefone, email, endereco) VALUES (?, ?, ?, ?, ?)', [name, cpf, telefone, email, endereco]);
-        res.status(201).json({ id: result.insertId, name, cpf, telefone, email, endereco });
+        const [result] = await db.query('INSERT INTO clientes (name, cpf, telefone, email, endereco) VALUES (?, ?, ?, ?, ?)', [clientName, cpf, telefone, email, endereco]);
+        res.status(201).json({ id: result.insertId, name: clientName, nome: clientName, cpf, telefone, email, endereco });
     } catch (error){
         console.error('Erro ao criar cliente:', error);
         res.status(500).json({ error: 'Erro interno do servidor' });
@@ -37,13 +38,14 @@ export async function createClient(req, res) {
 
 export async function updateClient(req, res) {
     const { id } = req.params;
-    const { name, cpf, telefone, email, endereco } = req.body;
+    const { name, nome, cpf, telefone, email, endereco } = req.body;
+    const clientName = name ?? nome;
     try {
-        const [result] = await db.query('UPDATE clientes SET nome = ?, cpf = ?, telefone = ?, email = ?, endereco = ? WHERE id = ?', [name, cpf, telefone, email, endereco, id]);
+        const [result] = await db.query('UPDATE clientes SET name = ?, cpf = ?, telefone = ?, email = ?, endereco = ? WHERE id = ?', [clientName, cpf, telefone, email, endereco, id]);
         if (result.affectedRows === 0) {
             return res.status(404).json({ error: 'Cliente não encontrado' });
         }
-        res.json({ id, name, cpf, telefone, email, endereco });
+        res.json({ id, name: clientName, nome: clientName, cpf, telefone, email, endereco });
     } catch (error) {
         console.error('Erro ao atualizar cliente:', error);
         res.status(500).json({ error: 'Erro interno do servidor' });

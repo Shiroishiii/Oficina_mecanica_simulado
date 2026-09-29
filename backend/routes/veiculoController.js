@@ -6,9 +6,9 @@ import {
     createVeiculo,
     updateVeiculo,
     deleteVeiculo
-} from '../controllers/veiculoController.js';
+} from '../controller/veiculo.js';
 
-import { authenticate } from "../middlewares/auth";
+import { authenticate } from "../middlewares/auth.js";
 
 const veiculoRouter = Router();
 

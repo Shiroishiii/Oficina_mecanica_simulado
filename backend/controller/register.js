@@ -11,7 +11,7 @@ export async function register(req, res) {
         return res.status(400).json({ message: "Informe os três campos necessários para o registro" });
     }
 
-    const [users] = await db.query("SELECT email FROM user WHERE email = ?", [email]);
+    const [users] = await db.query("SELECT email FROM users WHERE email = ?", [email]);
 
     if(users.length > 0) {
         return res.status(400).json({ message: "Email já cadastrado" });
@@ -20,7 +20,7 @@ export async function register(req, res) {
     const passwordHash = await bcrypt.hash(password, 10);
 
     try{
-        await db.query("INSERT INTO user (name, email, password_hash, role) VALUES (?, ?, ?, ?)", [name, email, passwordHash, 'user']);
+        await db.query("INSERT INTO users (name, email, password_hash, role) VALUES (?, ?, ?, ?)", [name, email, passwordHash, 'user']);
         return res.status(201).json({ message: "Usuário cadastrado com sucesso" });
     }catch(error){
         return res.status(400).json({ message: "Email ou senha inválidos" })

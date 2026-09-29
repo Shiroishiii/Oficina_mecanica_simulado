@@ -6,9 +6,9 @@ import {
     createClient,
     updateClient,
     deleteClient
-} from '../controllers/clientController.js';
+} from '../controller/client.js';
 
-import { authenticate } from '../middleware/auth.js';
+import { authenticate } from '../middlewares/auth.js';
 
 const clientRouter = Router();
 

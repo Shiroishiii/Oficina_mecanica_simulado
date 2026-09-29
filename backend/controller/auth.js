@@ -17,7 +17,7 @@ export async function login(req, res) {
     }
 
     const [rows] = await db.query(
-        "SELECT id, name, email, password_hash, role FROM user WHERE email = ?",
+        "SELECT id, name, email, password_hash, role FROM users WHERE email = ?",
         [email.trim()]
     );
 

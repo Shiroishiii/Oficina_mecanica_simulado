@@ -1,1 +1,90 @@
 @import "tailwindcss";
+
+@theme {
+    --color-ink: #090b0d;
+    --color-panel: #121619;
+    --color-panel-2: #1b2226;
+    --color-line: #30393e;
+    --color-bone: #eee9df;
+    --color-bone-bright: #fffaf0;
+    --color-steel: #9ba7ad;
+    --color-burnt-red: #c2382c;
+    --color-garage-black: #07090a;
+    --font-heading: "Arial Narrow", "Roboto Condensed", Impact, sans-serif;
+    --font-sans: Inter, "Segoe UI", Arial, sans-serif;
+}
+
+:root {
+    color-scheme: dark;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body,
+#root {
+    min-height: 100%;
+}
+
+body {
+    margin: 0;
+    background: var(--color-garage-black);
+    color: var(--color-bone);
+    font-family: var(--font-sans);
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+.heading {
+    font-family: var(--font-heading);
+    font-stretch: condensed;
+    font-weight: 800;
+    letter-spacing: 0.025em;
+    line-height: 1.05;
+    text-transform: uppercase;
+}
+
+.stencil {
+    font-family: var(--font-heading);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    line-height: 1.5;
+    text-transform: uppercase;
+}
+
+.grain {
+    isolation: isolate;
+}
+
+.grain::before {
+    position: absolute;
+    z-index: 0;
+    pointer-events: none;
+    inset: 0;
+    background-image: repeating-linear-gradient(0deg, rgb(255 255 255 / 1.2%) 0, rgb(255 255 255 / 1.2%) 1px, transparent 1px, transparent 3px);
+    content: "";
+}
+
+::selection {
+    background: var(--color-burnt-red);
+    color: var(--color-bone-bright);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

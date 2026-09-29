@@ -6,11 +6,13 @@ import {
     createOrdemServico,
     updateOrdemServico,
     deleteOrdemServico
-} from '../controllers/ordemServicoController.js';
+} from '../controller/ordemServico.js';
 
 import { authenticate } from "../middlewares/auth.js";
 
 const ordemServicoRouter = Router();
+
+ordemServicoRouter.use(authenticate);
 
 ordemServicoRouter.get('/', getAllOrdensServico);
 
@@ -22,4 +24,4 @@ ordemServicoRouter.put('/:id', updateOrdemServico);
 
 ordemServicoRouter.delete('/:id', deleteOrdemServico);
 
-ordemServicoRouter.use(authenticate);
+export default ordemServicoRouter;

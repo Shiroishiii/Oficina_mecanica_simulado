@@ -1,24 +1,13 @@
 import { BrowserRouter } from 'react-router-dom'
-import { Toaster } from 'react-hot-toast'
-
-import { AuthProvider } from './contexts/AuthContext'
-import { AppRoutes } from './routes/AppRoutes'
+import { AppRoutes } from './routes'
+import { GarageProvider } from './lib/garage-store'
 
 export function App() {
     return (
         <BrowserRouter>
-            <AuthProvider>
+            <GarageProvider>
                 <AppRoutes />
-
-                <Toaster
-                    position="top-right"
-                    toastOptions={{
-                        style: {
-                            borderRadius: '12px',
-                        },
-                    }}
-                />
-            </AuthProvider>
+            </GarageProvider>
         </BrowserRouter>
     )
 }

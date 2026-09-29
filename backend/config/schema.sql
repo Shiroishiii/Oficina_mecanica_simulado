@@ -9,7 +9,7 @@ create table users (
     password_hash VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     role ENUM('admin', 'user') NOT NULL DEFAULT 'user'
-)
+);
 
 create table clientes (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -19,7 +19,7 @@ create table clientes (
     email VARCHAR(150),
     endereco VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)
+);
 
 create table veiculos (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -28,14 +28,14 @@ create table veiculos (
     marca VARCHAR(100) NOT NULL,
     modelo VARCHAR(100) NOT NULL,
     ano INT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT fk_veiculo_cliente
         FOREIGN KEY (cliente_id)
         REFERENCES clientes(id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
-)
+);
 
 create table ordens_servicos (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -47,10 +47,10 @@ create table ordens_servicos (
     status ENUM(
         'Agendada',
         'Em Andamento',
-        'Concluída',
+        'Concluida',
         'Cancelada'
     ) DEFAULT 'Agendada',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT fk_os_cliente
         FOREIGN KEY (cliente_id)
@@ -63,5 +63,5 @@ create table ordens_servicos (
         REFERENCES veiculos(id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
-)
+);
 
