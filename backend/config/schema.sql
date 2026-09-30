@@ -64,4 +64,3 @@ create table ordens_servicos (
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
-
